@@ -4,10 +4,10 @@ var strFile = '';
 process.argv.forEach(function (val, index, arrArguments) {
   if(arrArguments.length === 3){ 
   	//test the file
-  	//var rgxTest=RegExp('^(doc|docx|xls)$');
   	//if(rgxTest.test(arrArguments[2])){ 
   		strFile=arrArguments[2]; 
   	//}else{ console.log('invalid file'); }
+  	console.log( /^[a-z]:((\\|\/)[a-z0-9\s_@\-^!#$%&+={}\[\]]+)+\.[doc|docx]$/i.test(strFile) );
   }
 });
 
