@@ -11,6 +11,7 @@ process.argv.forEach(function (val, index, arrArguments) {
   }
 });
 
+/*
 //pass the file argument to be run
 if(strFile !== ''){
 	fs.readFile(strFile, 'utf8', function (err,data) {
@@ -20,3 +21,21 @@ if(strFile !== ''){
 	  console.log(data);
 	});
 }
+*/
+
+
+/*  this is for docxespecifically, not doc
+var dxe = require('docx-extractor');
+ 
+dxe.lastModified(strFile, function(data){
+    console.log(data)
+});
+
+*/
+
+var WordExtractor = require("word-extractor");
+var extractor = new WordExtractor();
+var extracted = extractor.extract(strFile);
+extracted.then(function(doc) {
+  console.log(doc.getBody());
+});
