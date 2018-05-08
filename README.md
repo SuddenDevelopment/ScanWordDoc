@@ -14,7 +14,7 @@ This is a community project at https://www.codeforatlanta.org/
 ## getting started
 
 ```bash
-> node scan.js nameoffile.doc
+> node scan.js ./tests/benign/nomacros.doc
 ```
 
 ## Supported Files
