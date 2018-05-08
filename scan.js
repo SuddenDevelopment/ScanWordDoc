@@ -37,5 +37,6 @@ var WordExtractor = require("word-extractor");
 var extractor = new WordExtractor();
 var extracted = extractor.extract(strFile);
 extracted.then(function(doc) {
-  console.log(doc.getBody());
+  console.log(doc);
+  //console.log(doc.getBody());
 });

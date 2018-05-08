@@ -1,0 +1,30 @@
+{
+  "name": "scanworddoc",
+  "version": "1.0.0",
+  "description": "Look for malicious patterns in Word Docs. Intended to be used inline with email or standalone per file.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "async": "^2.6.0",
+    "docx-extractor": "^1.1.4",
+    "event-stream": "^3.3.4",
+    "underscore": "^1.9.0",
+    "word-extractor": "^0.1.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SuddenDevelopment/ScanWordDoc.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SuddenDevelopment/ScanWordDoc/issues"
+  },
+  "homepage": "https://github.com/SuddenDevelopment/ScanWordDoc#readme"
+}
