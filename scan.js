@@ -6,12 +6,14 @@ var CFB = require('cfb');
 fnTest = function(strFile){
   console.log('go');
   var cfb = CFB.read(strFile, {type: 'file'});
-  var workbook = CFB.find(cfb, 'Workbook');
+  //console.log( CFB.find(cfb, 'Module1') );
   //build the return object that has all the answers
   var objResponse={
+    "fileType":'doc',
     "hasMacro":false,
     "macroTxt":'',
-    "isValid":false
+    "isValid":false,
+    "hasContent":false
   };
   //var data = workbook.content;
 
@@ -22,6 +24,14 @@ fnTest = function(strFile){
       objResponse.hasMacro=true;
     }
   }
+
+  //find Content, no content is no bueno
+  var objDoc = CFB.find(cfb, 'WordDocument');
+  var strData = objDoc.content;
+  if(strData.length > 1){
+    objResponse.hasContent=true;
+  }
+
   console.log(objResponse);
   return objResponse;
 }
