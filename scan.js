@@ -1,51 +1,37 @@
 var fs = require('fs')
 var strFile = '';
+var CFB = require('cfb');
 //get the command line arg for the file
+
+fnTest = function(strFile){
+  console.log('go');
+  var cfb = CFB.read(strFile, {type: 'file'});
+  var workbook = CFB.find(cfb, 'Workbook');
+  //build the return object that has all the answers
+  var objResponse={
+    "hasMacro":false,
+    "macroTxt":'',
+    "isValid":false
+  };
+  //var data = workbook.content;
+
+  var arrFiles = cfb.FullPaths;
+
+  for(var i=0; i<arrFiles.length;i++){
+    if(arrFiles[i] === 'Root Entry/Macros/'){
+      objResponse.hasMacro=true;
+    }
+  }
+  console.log(objResponse);
+  return objResponse;
+}
+
 process.argv.forEach(function (val, index, arrArguments) {
   if(arrArguments.length === 3){ 
   	//test the file
-  	//if(rgxTest.test(arrArguments[2])){ 
-  		strFile=arrArguments[2]; 
-  	//}else{ console.log('invalid file'); }
-  	console.log( /^[a-z]:((\\|\/)[a-z0-9\s_@\-^!#$%&+={}\[\]]+)+\.[doc|docx]$/i.test(strFile) );
+  		if( /^.[doc|docx]$/i.test(arrArguments[2]) === false ){
+        strFile=arrArguments[2];
+        fnTest(strFile);
+      }else{}
   }
 });
-
-/*
-//pass the file argument to be run
-if(strFile !== ''){
-	fs.readFile(strFile, 'utf8', function (err,data) {
-	  if (err) {
-	    return console.log(err);
-	  }
-	  console.log(data);
-	});
-}
-*/
-
-
-/*  this is for docxespecifically, not doc
-var dxe = require('docx-extractor');
- 
-dxe.lastModified(strFile, function(data){
-    console.log(data)
-});
-
-*/
-/*
-var WordExtractor = require("word-extractor");
-var extractor = new WordExtractor();
-var extracted = extractor.extract(strFile);
-extracted.then(function(doc) {
-  console.log(doc);
-  //console.log(doc.getBody());
-});
-*/
-
-var CFB = require('cfb');
-
-var cfb = CFB.read(strFile, {type: 'file'});
-var workbook = CFB.find(cfb, 'Workbook');
-//var data = workbook.content;
-
-console.log(cfb.FullPaths);
