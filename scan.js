@@ -32,7 +32,7 @@ dxe.lastModified(strFile, function(data){
 });
 
 */
-
+/*
 var WordExtractor = require("word-extractor");
 var extractor = new WordExtractor();
 var extracted = extractor.extract(strFile);
@@ -40,3 +40,12 @@ extracted.then(function(doc) {
   console.log(doc);
   //console.log(doc.getBody());
 });
+*/
+
+var CFB = require('cfb');
+
+var cfb = CFB.read(strFile, {type: 'file'});
+var workbook = CFB.find(cfb, 'Workbook');
+//var data = workbook.content;
+
+console.log(cfb.FullPaths);
