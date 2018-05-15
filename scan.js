@@ -1,13 +1,36 @@
-var fs = require('fs')
-var strFile = '';
-var CFB = require('cfb');
-//get the command line arg for the file
+var libFs = require('fs');
+var libCfb = require('cfb');
+var libPath = require('path');
+
+//these are the only allowed extensions:
+var arrAllowed=['.doc','.xls'];
 
 fnTest = function(strFile){
   console.log('go');
-  var cfb = CFB.read(strFile, {type: 'file'});
-  //console.log( CFB.find(cfb, 'Module1') );
-  //build the return object that has all the answers
+  var objFileInfo = libFs.lstatSync(strFile);
+  if(objFileInfo.isDirectory() === true){
+    console.log(strFile + ' is a directory, processing.')
+    fnProcessDirectory(strFile);
+  }else if(objFileInfo.isFile() === true){
+    var strExtension = libPath.extname(strFile);
+    if(arrAllowed.indexOf(strExtension) > -1){ fnTestFile(strFile); }
+    else{ console.log(strExtension + ' extension not supported on file: ' + strFile); }
+  }
+}
+
+fnProcessDirectory=function(strDirectory){
+  //add a trailing slash, makes it more consistent
+  if( strDirectory.charAt(strDirectory.length-1) !== '/' ){ strDirectory=strDirectory+'/'; }
+  libFs.readdir(strDirectory, (err, arrFiles) => {
+    for(var i=0;i<arrFiles.length;i++){
+      //console.log(arrFiles[i]);
+      fnTest(strDirectory+arrFiles[i]);
+    }
+  })
+}
+
+fnTestFile=function(strFile){
+  var objCfb = libCfb.read(strFile, {type: 'file'});
   var objResponse={
     "fileType":'doc',
     "hasMacro":false,
@@ -17,7 +40,7 @@ fnTest = function(strFile){
   };
   //var data = workbook.content;
 
-  var arrFiles = cfb.FullPaths;
+  var arrFiles = objCfb.FullPaths;
 
   for(var i=0; i<arrFiles.length;i++){
     if(arrFiles[i] === 'Root Entry/Macros/'){
@@ -26,7 +49,7 @@ fnTest = function(strFile){
   }
 
   //find Content, no content is no bueno
-  var objDoc = CFB.find(cfb, 'WordDocument');
+  var objDoc = libCfb.find(objCfb, 'WordDocument');
   var strData = objDoc.content;
   if(strData.length > 1){
     objResponse.hasContent=true;
@@ -36,12 +59,5 @@ fnTest = function(strFile){
   return objResponse;
 }
 
-process.argv.forEach(function (val, index, arrArguments) {
-  if(arrArguments.length === 3){ 
-  	//test the file
-  		if( /^.[doc|docx]$/i.test(arrArguments[2]) === false ){
-        strFile=arrArguments[2];
-        fnTest(strFile);
-      }else{}
-  }
-});
+//grab the 3rd argument and run it, tests for what it is are inside the functions
+fnTest(process.argv[2]);
