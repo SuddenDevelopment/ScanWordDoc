@@ -13,13 +13,21 @@ This is a community project at https://www.codeforatlanta.org/
 
 ## getting started
 
+scan individual files
 ```bash
 > node scan.js ./tests/benign/nomacros.doc
+> node scan.js ./tests/benign/hasmacros.doc
+> node scan.js ./tests/malicious/hasmacros.doc
+```
+or scan directories + subdirectories
+```
+> node scan.js ./tests/
 ```
 
+
 ## Supported Files
-1. Word docs, 97+
-2. Excel
+1. Excel XLS
+2. Word DOC
 
 ## Example Malicious MAcro / Command
 ```powershell
@@ -27,6 +35,7 @@ C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe -Exec Bypass -NoP -NoE
 ```
 
 ## References
+- https://www.npmjs.com/package/cfb : currently the primary library supporting functions thanks Yaw Agyepong !
 - https://github.com/curi0usJack/luckystrike
 - https://github.com/enigma0x3/Generate-Macro
 - https://github.com/joesecurity/pafishmacro
