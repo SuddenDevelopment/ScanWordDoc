@@ -13,11 +13,17 @@ This is a community project at https://www.codeforatlanta.org/
 
 ## getting started
 
+scan individual files
 ```bash
 > node scan.js ./tests/benign/nomacros.doc
 > node scan.js ./tests/benign/hasmacros.doc
 > node scan.js ./tests/malicious/hasmacros.doc
 ```
+or scan directories + subdirectories
+```
+> node scan.js ./tests/
+```
+
 
 ## Supported Files
 1. Excel XLS
