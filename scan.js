@@ -12,7 +12,7 @@ fnTest = function(strFile){
     console.log(strFile + ' is a directory, processing.')
     fnProcessDirectory(strFile);
   }else if(objFileInfo.isFile() === true){
-    var strExtension = libPath.extname(strFile);
+    var strExtension = libPath.extname(strFile).toLowerCase();
     if(arrAllowed.indexOf(strExtension) > -1){ fnTestFile(strFile); }
     else{ console.log(strExtension + ' extension not supported on file: ' + strFile); }
   }
@@ -41,19 +41,21 @@ fnTestFile=function(strFile){
   //var data = workbook.content;
 
   var arrFiles = objCfb.FullPaths;
-
   for(var i=0; i<arrFiles.length;i++){
-    if(arrFiles[i] === 'Root Entry/Macros/'){
-      objResponse.hasMacro=true;
+    if(arrFiles[i] === 'Root Entry/Macros/'){ 
+      objResponse.hasMacro=true; 
+    }
+    if(objCfb.FileIndex[i].type===2 && typeof objCfb.FileIndex[i].content !== 'undefined'){
+      var strContent = objCfb.FileIndex[i].content.toString('utf8');
+      //console.log(strContent,strContent.indexOf('VB_Name'));
+      //if(strContent.indexOf('VB_Name') > -1){ console.log(strContent); }
     }
   }
 
   //find Content, no content is no bueno
   var objDoc = libCfb.find(objCfb, 'WordDocument');
   var strData = objDoc.content;
-  if(strData.length > 1){
-    objResponse.hasContent=true;
-  }
+  if(strData.length > 1){ objResponse.hasContent=true; }
 
   console.log(objResponse);
   return objResponse;
